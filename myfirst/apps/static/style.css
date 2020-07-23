@@ -1,0 +1,203 @@
+html, body {
+    height: 100%;
+    max-height: 100%;
+    font-family: "Roboto", sans-serif;
+    background-color: whitesmoke;
+}
+
+.navbar{
+    margin-bottom: 0;
+}
+
+.wrapper-content{
+    overflow: auto;
+    padding-bottom: 180px;
+}
+
+.footer{
+    position: relative;
+    margin-top: 350px;
+    clear: both;
+    background-color: floralwhite;
+    height: 280px;
+}
+
+.section-top{
+    margin: 0;
+    width: 60%;
+}
+
+.product-description-tabs{
+    padding: 10px;
+}
+
+.product-item{
+    height:400px;
+    background-color: white;
+    border: 1px solid whitesmoke;
+    position: relative;
+    padding: 5px 0 5px 0;
+    text-align: center;
+    margin-bottom: 10px;
+    border-radius: 15px;
+}
+.add-to-cart-btn{
+    position: absolute;
+    bottom: 10px;
+    left: 50px;
+}
+
+.discount-container{
+    position: absolute;
+    top: 50%;
+    background: green;
+    width: 30%;
+    color:floralwhite;
+    font-weight: 700;
+    padding: 3px;
+}
+.section-delivery{
+    height: 300px;
+    background-color: powderblue;
+    text-align: center;
+    color: white;
+}
+
+.product-image-item{
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.navbar-top{
+    min-height: 40px;
+    height: 15px;
+    background-color: #5cb85c;
+    border: none;
+    border-radius: 0;
+}
+
+.navbar-main{
+    border: none;
+    border-radius: none;
+
+}
+
+.cart-container{
+    position: relative;
+    padding: 15px 10px;
+}
+
+.cart-items{
+    position: absolute;
+    top: 50px;
+    width: 200px;
+    padding: 10px;
+    background-color: #e7e7e7;
+    z-index: 10;
+}
+
+.form-control{
+    width: 200px;
+}
+
+.form-error{
+    color: red;
+}
+
+.text-right{
+    padding: 10px ;
+}
+
+.carousel-slide{
+    width: 80%;
+}
+
+.cart-text{
+    list-style: none;
+}
+
+.all-category{
+    margin: 25px 522px 25px 480px;
+}
+.surgery-category{
+    margin: 25px 522px 25px 480px;
+}
+.cosmetics-category{
+    margin: 25px 522px 25px 480px;
+}
+/*.carousel-indicators li{
+    background-color: black;
+    bottom: 0;
+    border:1px solid black;
+    margin-bottom: -1px;
+}*/
+
+.carousel-indicators{
+    margin-bottom: -10px;
+}
+
+/* Modal Header */
+.modal-header {
+  padding: 2px 16px;
+  background-color: #5cb85c;
+  color: white;
+}
+
+/* Modal Body */
+.modal-body {
+    padding: 2px 16px;
+    background-color: white;
+}
+
+/* Modal Footer */
+.modal-footer {
+  padding: 2px 16px;
+  background-color: #5cb85c;
+  color: white;
+}
+
+.modal{
+    margin-top: 300px;
+    margin-left: 395px;
+}
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #5cb85c;
+  margin: auto;
+  padding: 0px;
+  border: 1px solid #888;
+  width: 30%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+/* Add Animation */
+@keyframes animatetop {
+  from {top: -300px; opacity: 0}
+  to {top: 0; opacity: 1}
+}
+
+.close {
+  color: #333;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.dropdown-menu{
+    border-radius: 10px;
+    background-color: white;
+}
+
+.section-products-in-categories{
+    margin: 25px 10px 10px 10px;
+}

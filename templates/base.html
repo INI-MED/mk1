@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} METMedical {% endblock title%}</title>
+
+<!-- Bootstrap-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400" rel="stylesheet">
+
+
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+
+</head>
+<body>
+     <div class="wrapper">
+        <div class="wrapper-content">
+            {% include "navbar.html" %}
+                   {% csrf_token %}
+            {% block content %}
+
+            {% endblock content %}
+
+        </div>
+     </div>
+
+     {% include "footer.html" %}
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script>
+    $(function () {
+        var t = function () {
+            var now = new Date();
+            var m = now.getMinutes();
+            var s = now.getSeconds();
+            if (m < 10) m = '0' + m;
+            if (s < 10) s = '0' + s;
+            return m + ':' + s;
+        };
+        $('#carousel').on('slide.bs.carousel', function (e) {
+
+            $('.log').prepend('<li>' + t() + ' - slide.bs.carousel</li>');
+
+            var to, from;
+
+            var count = $(e.relatedTarget).parent().find('.item').length - 1;
+            $(e.relatedTarget).parent().find('.item').each(function (index, element) {
+                if (element === e.relatedTarget) {
+                    to = index;
+                }
+            });
+            if (e.direction === "left") {
+                from = (to === 0) ? count : to - 1;
+            } else {
+                from = (to === count) ? 0 : to + 1;
+            }
+
+            var info = '<li><b>direction</b> = ' + e.direction + '</li>';
+            info += '<li><b>DOM-элемент</b> = ' + $(e.relatedTarget).attr('id') + '</li>';
+            info += '<li><b>from</b> = ' + from + '</li>';
+            info += '<li><b>to</b> = ' + to + '</li>';
+            $('.info').html(info);
+        });
+        $('#carousel').on('slid.bs.carousel', function (e) {
+            $('.log').prepend('<li>' + t() + ' - slid.bs.carousel</li>');
+        });
+    });
+    </script>
+
+    <script src="{% static "js/scripts.js" %}"></script>
+
+
+
+</body>
+</html>

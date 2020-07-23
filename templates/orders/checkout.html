@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {% if products_in_cart %}
+                <div class="col-lg-12">
+                    <h3 class="text-center"> Ваш заказ: {{ request.session.cart.total_amount }}</h3>
+                            {{ request.session.cart.products }}
+                        <form id="main_checkout" class="form-horizontal"  action="{% url "checkout" %}" method = "post"> {% csrf_token %}
+                            <div class="form-group">
+                                <div class="col-lg-4">
+                                    <label> Ваше имя:
+                                        <span class="form-error"> {{ form.name.errors }}</span>
+                                        <input type="text" name="{{ form.name.html_name }}" class="form-control"
+                                            value="{{ request.POST.name }}" required placeholder="Иван">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-8">
+                                    <label>Ваш телефон:
+                                        <span class="form-error"> {{ form.phone.errors }}</span>
+                                        <input type="text" name="{{ form.phone.html_name }}" class="form-control"
+                                            value="{{ request.POST.phone }}" id="tel" required minlength="17" maxlength="17" placeholder="+7(999)-999-99-99" >
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-8">
+                                    <label>Ваш адресс:
+                                        <span class="form-error"> {{ form.phone.errors }}</span>
+                                        <input type="text" name="{{ form.adress.html_name }}" class="form-control"
+                                            value="{{ request.POST.adress }}" required placeholder="Ул. Ленина д.1">
+                                    </label>
+                                </div>
+                            </div>
+                            <table class="table text-center">
+                                <thead>
+                                    <tr>
+                                        <th>Название:</th>
+                                        <th>Количество:</th>
+                                        <th>Цена за единицу:</th>
+                                        <th>Общая стоимость:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for product_in_cart in products_in_cart %}
+                                        <tr>
+                                            <td>
+                                                {{ product_in_cart.product.product_name }}
+                                            </td>
+                                            <td>
+                                                <label>
+                                                    <input value="{{ product_in_cart.amount }}" min="1" type="number"
+                                                    class="product-in-cart-amount" name="products_in_cart{{ product_in_cart.id }}" required minlength="1">
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <span class="product-price">
+                                                    {{ product_in_cart.price_per_item }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="total-amount-in-cart">
+                                                    {{ product_in_cart.price_in_total }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <div class="text-right">
+                                <b>Сумма заказа: </b> <span id="total_order_amount"> </span>
+                            </div>
+                            <div class="text-right ">
+                                <input type="hidden" name="next" value="{{ request.path }}">
+                                <button type="submit" class="btn btn-primary btn-lg" id="cash_btn"
+                                        data-product_id="{{ product.id }}"
+                                        data-product_name="{{ product.product_name }}"
+                                        data-product_price="{{ product.product_price }}" >
+                                    Оплата наличными
+                                </button>
+                            </div>
+                            <div class="text-right ">
+                                <input type="hidden" name="next" value="{{ request.path }}">
+                                <button type="submit" class="btn btn-primary btn-lg" style="width: 198px">
+                                    Оплата картой
+                                </button>
+                            </div>
+                        </form>
+                </div>
+            {% else %}
+                <h3 class="text-center">В вашей корзине пока нет товаров</h3>
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}

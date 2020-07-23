@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="text-center">
+            <div class="col-lg-6">
+                <h1>Ваш заказ был оформлен</h1>
+                <h2>Ожидайте звонка от оператора</h2>
+            </div>
+        <div class="col-lg-4" style="padding: 45px 0 0 0">
+            <div class="text-center">
+                 <label>
+                     <a href="/">
+                        <button type="submit"  class="btn btn-success btn-buy">
+                            Вернуться к покупкам
+                        </button>
+                     </a>
+                 </label>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}

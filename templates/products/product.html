@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load static  %}
+
+{% block content %}
+    <div class="container">
+        <div class="col-lg-6">
+            {% for image_item in product.productimg_set.all %}
+            <div class="product-image-item">
+            <img src="{{ image_item.image.url }}" class="img-responsive" alt="...">
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <h1 class="text-center">
+                    {{ product.product_name }}
+                </h1>
+                <div class="">
+                    <p>
+                       Цена: {{ product.product_price }}
+                    </p>
+                </div>
+
+                <div>
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#description" aria-controls="home" role="tab" data-toggle="tab">
+                                Описание
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#delivery" aria-controls="profile" role="tab" data-toggle="tab">
+                                Доставка
+                            </a>
+                        </li>
+                  </ul>
+
+                  <!-- Tab panes -->
+                  <div class="tab-content product-description-tabs">
+                    <div role="tabpanel" class="tab-pane active" id="description">
+                        {{ product.product_description }}
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="delivery">
+                         <h5> Описание доставки </h5>
+                    </div>
+
+                  </div>
+                </div>
+                <div>
+                    <form id="form_buying_product" class="form-inline" action="{% url "cart_adding" %}" method="post" > {% csrf_token %}
+                        <div class="form-group">
+                                <label for="number">
+                                    <span class="form-error"> {{ form.amount.errors }} </span>
+                                    <input type="number" class="form-control" name={{ form.amount.html_name }} id="number">
+                                </label>
+                        </div>
+
+                        <div class="form-group">
+                             <label>
+                                <button type="submit" id="submit_btn" class="btn btn-success btn-buy"
+                                        data-product_id="{{ product.id }}"
+                                        data-product_name="{{ product.product_name }}"
+                                        data-product_price="{{ product.product_price }}"
+                                >
+                                    Добавить в корзину
+                                </button>
+
+                             </label>
+                        </div>
+                        <div id="submit" class="modal">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <span class="close">&times;</span>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Товар был добавлен в корзину </p>
+                                </div>
+                                <div class="modal-footer">  </div>
+                            </div>
+                        </div>
+                        <div id="not-submit" class="modal">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <span class="close">&times;</span>
+                                </div>
+                                <div class="modal-body">
+                                    <p> Добавьте хотя бы 1 товар  </p>
+                                </div>
+                                <div class="modal-footer">  </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

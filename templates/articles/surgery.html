@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+      <h3>Категории товаров </h3>
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active"><a href="/sections">Все товары</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Категории<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/surgery"> Хирургия</a></li>
+            <li><a href="/cosmetics">Терапия шрамов</a></li>
+            <li><a href="#">Еще 1 категория</a></li>
+            <li><a href="#">Еще 1 категория</a></li>
+            <li><a href="#">Еще 1 категория</a></li>
+            <li><a href="#">Еще 1 категория</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="section-surgery">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    {% for product_image in products_images_surgeries %}
+                            {% include "articles/product_item.html" %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
