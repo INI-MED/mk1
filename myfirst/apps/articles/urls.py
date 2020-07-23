@@ -11,7 +11,7 @@ urlpatterns = [
     url(r"^surgery/", views.surgery_section, name="surgery"),
     url(r"^cosmetics/", views.cosmetics_section, name="cosmetics"),
     url(r"^about/", views.about_us, name="about"),
-    url(r"^contacts", views.contacts, name="contacts")
+    #url(r"^contacts", views.contacts, name="contacts")
 
 ]
 
