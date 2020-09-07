@@ -4,9 +4,11 @@ from products.models import ProductIMG
 
 def home(request):
     session_key = request.session.session_key
+    total_product_images = ProductIMG.objects.count()
     products_images = ProductIMG.objects.filter(is_active=True, is_main=True, product__is_active=True)
     products_images_surgeries = products_images.filter(product__product_category__id=1)
     products_images_cosmetics = products_images.filter(product__product_category__id=2)
+
     return render(request, "articles/home.html", locals())
 
 

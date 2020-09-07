@@ -1,9 +1,6 @@
-import products.models
 from django.shortcuts import render
 from .forms import ProductForm
 from products.models import *
-from django.http import HttpResponseRedirect
-from django.urls import reverse
 
 
 def product(request, product_id):

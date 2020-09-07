@@ -61,6 +61,29 @@
                             {% include "articles/product_item.html" %}
                         {% endfor %}
                  </div>
+                 <a class="archive" href="#"></a>
+                  <script>
+                    var news = 2; // - количество отображаемых новостей
+                    hidenews = "- скрыть старые новости";
+                    shownews = "+ показать все новости";
+
+                    $(".archive").html( shownews );
+                    $(".news:not(:lt("+news+"))").hide();
+
+                    $(".archive").click(function (e){
+                      e.preventDefault();
+                      if( $(".news:eq("+news+")").is(":hidden") )
+                      {
+                        $(".news:hidden").show();
+                        $(".archive").html( hidenews );
+                      }
+                      else
+                      {
+                        $(".news:not(:lt("+news+"))").hide();
+                        $(".archive").html( shownews );
+                      }
+                    });
+                  </script>
             </div>
         </div>
         <div class="section-surgery">
