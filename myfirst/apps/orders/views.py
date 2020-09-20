@@ -1,4 +1,4 @@
-from products.models import Product
+#from products.models import Product
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from .models import *
 from django.shortcuts import render, redirect
@@ -44,46 +44,48 @@ def cart_adding(request):
 
 
 def checkout(request):
-    return_dict = dict()
+    #return_dict = dict()
     session_key = request.session.session_key
-    print(request.POST)
-    data = request.POST
+    #print(request.POST)
+    #data = request.POST
     products_in_cart = ProductInCart.objects.filter(session_key=session_key, is_active=True, order__isnull=True)
-
-    products_total_num = products_in_cart.count()
+    print(products_in_cart)
+    #products_total_num = products_in_cart.count()
     for item in products_in_cart:
         print(item.order)
 
-        form = CustomerForm(request.POST or None)
-        if request.POST:
-            # print(request.POST)
-            if form.is_valid():
-                data = request.POST
-                name = data["name"]
-                phone = data["phone"]
-                adress = data["adress"]
+    form = CustomerForm(request.POST or None)
+    if request.POST:
+        # print(request.POST)
+        if form.is_valid():
+            data = request.POST
+            name = data["name"]
+            phone = data["phone"]
+            adress = data["adress"]
 
-                user, created = User.objects.get_or_create(username=phone, defaults={"first_name": name})
+            user, created = User.objects.get_or_create(username=phone, defaults={"first_name": name})
 
-                order = Order.objects.get_or_create(user=user, customer_name=name,
-                                                    customer_phone=phone, customer_adress=adress, status_id=1)
+            order = Order.objects.get_or_create(user=user, customer_name=name,
+                                                customer_phone=phone, customer_adress=adress, status_id=1)
 
-                print(order, "meh")
+            print(order, "meh")
 
-                for name, value in data.items():
-                    if name.startswith("product_in_cart_"):
-                        product_in_cart_id = name.split("product_in_cart_")[1]
-                        product_in_cart = ProductInCart.objects.get(id=product_in_cart_id)
+            for name, value in data.items():
+                if name.startswith("product_in_cart_"):
+                    product_in_cart_id = name.split("product_in_cart_")[1]
+                    product_in_cart = ProductInCart.objects.get(id=product_in_cart_id)
 
-                        product_in_cart.amount = value
-                        product_in_cart.order = order
-                        product_in_cart.form.save(force_update=True)
-                        ProductInOrder.objects.get(product=product_in_cart.product,
-                                                   amount=product_in_cart.amount,
-                                                   price_per_item=product_in_cart.price_per_item,
-                                                   price_in_total=product_in_cart.price_in_total,
-                                                   order=order)
+                    product_in_cart.amount = value
+                    product_in_cart.order = order
+                    product_in_cart.form.save(force_update=True)
+                    ProductInOrder.objects.create(product=product_in_cart.product,
+                                                  amount=product_in_cart.amount,
+                                                  price_per_item=product_in_cart.price_per_item,
+                                                  price_in_total=product_in_cart.price_in_total,
+                                                  order=order)
 
-                return HttpResponseRedirect("/detail", request.META["HTTP_REFERER"])
+            return HttpResponseRedirect("/detail", request.META["HTTP_REFERER"])
+        else:
+            print("something goes wrong")
 
-        return render(request, "orders/checkout.html", locals())
+    return render(request, "orders/checkout.html", locals())
