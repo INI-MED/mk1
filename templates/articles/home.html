@@ -57,10 +57,8 @@
                             </a>
                         </div>
                     </div>
-                        {% for home in home.last_four %}
-                            {% for product_image in products_images %}
-                                {% include "articles/product_item.html" %}
-                            {% endfor %}
+                        {% for product_image in products_images %}
+                            {% include "articles/product_item.html" %}
                         {% endfor %}
                  </div>
             </div>
